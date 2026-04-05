@@ -175,10 +175,12 @@ function Hero() {
           <span className="hero__badge-dot" />
           Available for interesting conversations
         </div>
-        <h1 className="hero__name" >
-          Hey, I'm<br />
-          <em>{profile.name}</em>
-        </h1>
+        <h1 className="hero__name">
+          Hey, I'm{" "}
+          <em style={{ paddingBottom: "0.15em", display: "inline-block" }}>
+            {profile.name}
+          </em>
+        </h1> 
         <p className="hero__tagline">
           <span className="hero__tagline-cursor">▎</span>
           {profile.tagline}
