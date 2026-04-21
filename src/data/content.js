@@ -17,13 +17,39 @@ export const profile = {
 };
 
 export const blogPosts = [
-  { date: "Mar 20, 2026", title: "How Databases Handle MVCC Internally", slug: "#", readTime: "8 min" },
-  { date: "Mar 10, 2026", title: "Building a Rate Limiter from Scratch", slug: "#", readTime: "6 min" },
-  { date: "Feb 28, 2026", title: "Consistent Hashing Demystified", slug: "#", readTime: "10 min" },
-  { date: "Feb 15, 2026", title: "The CAP Theorem Is Often Misunderstood", slug: "#", readTime: "7 min" },
-  { date: "Feb 01, 2026", title: "How I Learned Distributed Systems", slug: "#", readTime: "5 min" },
-  { date: "Jan 18, 2026", title: "Writing Clean APIs in Go", slug: "#", readTime: "9 min" },
-  { date: "Jan 05, 2026", title: "Why You Should Read Database Papers", slug: "#", readTime: "4 min" },
+  {
+    date: "Mar 20, 2026",
+    title: "Introduction to Machine Learning",
+    slug: "intro-to-ml",
+    readTime: "12 min",
+    content: {
+      preface: `Most of what follows is inspired by, and adapted from, notes I originally wrote back in high school (2019), now refreshed and digitized. These notes were first put together while following the Machine Learning specialization by Andrew Ng on Coursera, albeit a very old version. I would also highly recommend going over 3Blue1Brown's lecture series on Neural Networks — they're a delight to visual learners trying to understand back propagation better.`,
+      sections: [
+        {
+          heading: "History",
+          body: `When learning a new topic, I always like to start with some history to understand the premise and "purpose" which lead to the creation of the given topic or field. In this case, "Artificial Intelligence" & "Machine Learning" have been fields of research since the 1950s.`,
+        },
+        {
+          heading: "The Turing Test",
+          body: `The world's first computer was built in 1946, the ENIAC. But theoreticians like Turing had already been theorizing about — in his 1936 paper, On Computable Numbers, with an Application to the Entscheidungsproblem — a general purpose "universal machine" that could solve "computable" problems.\n\nIt was also Turing who might have "kicked off" this field when he published his most cited paper, COMPUTING MACHINERY AND INTELLIGENCE in 1950, proposing the question "Can machines think?"\n\nIn this paper, he introduced the "Imitation Game" (now known as the Turing Test) as a practical way to assess if a machine could "think." It remains a benchmark even today, while we continue to debate between "AI", "AGI", "ASI", etc.`,
+        },
+        {
+          heading: "The Dartmouth Conference",
+          body: `This is publicly recognized as the most well-known birthplace of AI. In 1956, John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon organized a large workshop to bring together leading researchers and formally established the field of AI as a dedicated area of study.\n\nThis meeting marked the "official" birth of AI as a research field. John McCarthy is credited with coining the term "artificial intelligence."`,
+        },
+        {
+          heading: "The Perceptron",
+          body: `Following this conference, in 1957, Frank Rosenblatt built the world's first perceptron. It was a (in today's terms) single-layer neural network, which performed binary classification based on weighted inputs and a threshold.\n\nYou can think of the first perceptron as something as simple as a function that takes weighted inputs, sums them, and returns 1 if the sum exceeds a threshold, 0 otherwise.`,
+        },
+      ],
+    },
+  },
+  { date: "Mar 10, 2026", title: "Building a Rate Limiter from Scratch", slug: "rate-limiter", readTime: "6 min", content: null },
+  { date: "Feb 28, 2026", title: "Consistent Hashing Demystified", slug: "consistent-hashing", readTime: "10 min", content: null },
+  { date: "Feb 15, 2026", title: "The CAP Theorem Is Often Misunderstood", slug: "cap-theorem", readTime: "7 min", content: null },
+  { date: "Feb 01, 2026", title: "How I Learned Distributed Systems", slug: "distributed-systems", readTime: "5 min", content: null },
+  { date: "Jan 18, 2026", title: "Writing Clean APIs in Go", slug: "clean-apis-go", readTime: "9 min", content: null },
+  { date: "Jan 05, 2026", title: "Why You Should Read Database Papers", slug: "database-papers", readTime: "4 min", content: null },
 ];
 
 export const projects = [

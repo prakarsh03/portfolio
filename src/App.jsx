@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { profile, blogPosts, projects, talks } from "./data/content";
+import Page from "./page"
 
 /* ─── Intersection hook ────────────────────────────────── */
 function useInView(threshold = 0.12) {
@@ -248,7 +249,7 @@ function Section({ id, num, title, children, className = "" }) {
 }
 
 /* ─── Writing ──────────────────────────────────────────── */
-function Writing() {
+function Writing({ onNavigate }) {
   const [showAll, setShowAll] = useState(false);
   const shown = showAll ? blogPosts : blogPosts.slice(0, 5);
 
@@ -256,25 +257,33 @@ function Writing() {
     <Section id="writing" num="01" title="Writing">
       <p className="section__sub">Things I've written — deep dives, mental models, and lessons from the field.</p>
       <ul className="post-list">
-        {shown.map((p, i) => (
-          <li
-            key={i}
-            className="post-item"
-            style={{ transitionDelay: `${i * 55}ms` }}
-          >
-            <a href={p.slug} className="post-item__link">
-              <div className="post-item__left">
-                <span className="post-item__idx">{String(i + 1).padStart(2, "0")}</span>
-                <span className="post-item__title">{p.title}</span>
-              </div>
-              <div className="post-item__right">
-                <span className="post-item__read">{p.readTime}</span>
-                <time className="post-item__date">{p.date}</time>
-                <span className="post-item__arrow">↗</span>
-              </div>
-            </a>
-          </li>
-        ))}
+      {shown.map((p, i) => (
+      <li
+        key={i}
+        className="post-item"
+        style={{ transitionDelay: `${i * 55}ms` }}
+      >
+        <a
+          className="post-item__link"
+          onClick={(e) => {
+            e.preventDefault();
+            if (p.content) onNavigate(p.slug);
+          }}
+          href="#"
+          style={{ cursor: p.content ? "pointer" : "default" }}
+        >
+          <div className="post-item__left">
+            <span className="post-item__idx">{String(i + 1).padStart(2, "0")}</span>
+            <span className="post-item__title">{p.title}</span>
+          </div>
+          <div className="post-item__right">
+            <span className="post-item__read">{p.readTime}</span>
+            <time className="post-item__date">{p.date}</time>
+            <span className="post-item__arrow">↗</span>
+          </div>
+        </a>
+      </li>
+))}
       </ul>
       <button className="btn-text" onClick={() => setShowAll(o => !o)}>
         {showAll ? "← Show less" : `Show all ${blogPosts.length} posts →`}
@@ -393,12 +402,19 @@ function Footer() {
 
 /* ─── App ──────────────────────────────────────────────── */
 export default function App() {
+  const [currentSlug, setCurrentSlug] = useState(null);
+
+  // When a slug is set, show Page — otherwise show the main site
+  if (currentSlug) {
+    return <Page slug={currentSlug} onBack={() => setCurrentSlug(null)} />;
+  }
+
   return (
     <>
       <Nav />
       <main>
         <Hero />
-        <Writing />
+        <Writing onNavigate={setCurrentSlug} />
         <Projects />
         <Talks />
         <Contact />

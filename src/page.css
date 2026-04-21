@@ -1,0 +1,125 @@
+.pg {
+    min-height: 100vh;
+    background: #080c10;
+    color: #e2e8f0;
+  }
+  
+  .pg-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem clamp(20px, 5vw, 56px);
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  
+  .pg-back {
+    background: none;
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: #3dd68c;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+  .pg-back:hover { opacity: 0.7; }
+  
+  .pg-read {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: #4a5568;
+  }
+  
+  .pg-article {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem clamp(20px, 5vw, 56px) 8rem;
+  }
+  
+  .pg-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  
+  .pg-date {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #4a5568;
+    margin-bottom: 1rem;
+  }
+  
+  .pg-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #e2e8f0;
+  }
+  
+  .pg-preface {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border-left: 2px solid #3dd68c;
+    background: rgba(61,214,140,0.04);
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .pg-preface-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3dd68c;
+    margin-bottom: 0.75rem;
+  }
+  
+  .pg-preface p {
+    font-size: 0.95rem;
+    color: #8b9ab0;
+    line-height: 1.8;
+    margin: 0;
+  }
+  
+  .pg-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .pg-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #e2e8f0;
+    margin-bottom: 1rem;
+  }
+  
+  .pg-para {
+    font-size: 1rem;
+    color: #8b9ab0;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  
+  .pg-notfound {
+    min-height: 100vh;
+    background: #080c10;
+    padding: 2rem clamp(20px, 5vw, 56px);
+    color: #4a5568;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
