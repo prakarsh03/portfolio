@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { profile, blogPosts, projects, talks } from "./data/content";
-import Page from "./page"
+import Page from "./page";
+import DailyLogs from "./DailyLogs"; // ← 1. ADDED IMPORT
 
 /* ─── Intersection hook ────────────────────────────────── */
 function useInView(threshold = 0.12) {
@@ -18,7 +19,7 @@ function useInView(threshold = 0.12) {
 }
 
 /* ─── Nav ──────────────────────────────────────────────── */
-function Nav() {
+function Nav({ onLogsClick }) { // ← 2. ACCEPTS onLogsClick PROP
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -45,7 +46,14 @@ function Nav() {
           </li>
         ))}
         <li>
-          <a href={`mailto:${profile.email}`} className="nav__cta">Hire me</a>
+          {/* ← 3. REPLACED "Hire me" anchor with Daily Logs button */}
+          <button
+            onClick={() => { setMenuOpen(false); onLogsClick(); }}
+            className="nav__cta"
+            style={{ background: "none", cursor: "pointer", fontFamily: "inherit", border: "1px solid rgba(255,255,255,0.14)", borderRadius: "6px", color: "#e2e8f0" }}
+          >
+            Daily Logs
+          </button>
         </li>
       </ul>
       <button
@@ -68,8 +76,6 @@ function Hero() {
     const ctx = canvas.getContext("2d");
     let animId;
 
-
-
     const RING_GAP = 38;
     const BASE_ALPHA = 0.07;
     const GLOW_RADIUS = 20;
@@ -85,9 +91,9 @@ function Hero() {
       canvas.width  = W * devicePixelRatio;
       canvas.height = H * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
-      cx = W * 0.28;  // 50% - 44%/2 = 28% from left edge
+      cx = W * 0.28;
       cy = H / 2;
-      const maxR = Math.sqrt(Math.max(cx, W - cx) ** 2 + Math.max(cy, H - cy) ** 2) + RING_GAP;      
+      const maxR = Math.sqrt(Math.max(cx, W - cx) ** 2 + Math.max(cy, H - cy) ** 2) + RING_GAP;
       rings = [];
       for (let r = RING_GAP; r < maxR; r += RING_GAP) {
         rings.push({ r, glow: 0 });
@@ -107,7 +113,6 @@ function Hero() {
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
 
-      /* static spokes */
       for (let i = 0; i < 16; i++) {
         const angle = (Math.PI * 2 / 16) * i;
         ctx.strokeStyle = "rgba(61,214,140,0.025)";
@@ -127,7 +132,6 @@ function Hero() {
           : 0;
         ring.glow += (target - ring.glow) * FADE_SPEED;
 
-        /* halo */
         if (ring.glow > 0.01) {
           ctx.strokeStyle = `rgba(61,214,140,${ring.glow * 0.18})`;
           ctx.lineWidth = 0.5 + ring.glow * 1.8 + 6;
@@ -136,7 +140,6 @@ function Hero() {
           ctx.stroke();
         }
 
-        /* ring */
         ctx.strokeStyle = `rgba(61,214,140,${BASE_ALPHA + ring.glow * GLOW_STRENGTH})`;
         ctx.lineWidth = 0.5 + ring.glow * 1.8;
         ctx.beginPath();
@@ -144,7 +147,6 @@ function Hero() {
         ctx.stroke();
       });
 
-      /* center dot */
       ctx.fillStyle = "rgba(61,214,140,0.15)";
       ctx.beginPath();
       ctx.arc(cx, cy, 2, 0, Math.PI * 2);
@@ -181,7 +183,7 @@ function Hero() {
           <em style={{ paddingBottom: "0.15em", display: "inline-block" }}>
             {profile.name}
           </em>
-        </h1> 
+        </h1>
         <p className="hero__tagline">
           <span className="hero__tagline-cursor">▎</span>
           {profile.tagline}
@@ -257,33 +259,29 @@ function Writing({ onNavigate }) {
     <Section id="writing" num="01" title="Writing">
       <p className="section__sub">Things I've written — deep dives, mental models, and lessons from the field.</p>
       <ul className="post-list">
-      {shown.map((p, i) => (
-      <li
-        key={i}
-        className="post-item"
-        style={{ transitionDelay: `${i * 55}ms` }}
-      >
-        <a
-          className="post-item__link"
-          onClick={(e) => {
-            e.preventDefault();
-            if (p.content) onNavigate(p.slug);
-          }}
-          href="#"
-          style={{ cursor: p.content ? "pointer" : "default" }}
-        >
-          <div className="post-item__left">
-            <span className="post-item__idx">{String(i + 1).padStart(2, "0")}</span>
-            <span className="post-item__title">{p.title}</span>
-          </div>
-          <div className="post-item__right">
-            <span className="post-item__read">{p.readTime}</span>
-            <time className="post-item__date">{p.date}</time>
-            <span className="post-item__arrow">↗</span>
-          </div>
-        </a>
-      </li>
-))}
+        {shown.map((p, i) => (
+          <li key={i} className="post-item" style={{ transitionDelay: `${i * 55}ms` }}>
+            <a
+              className="post-item__link"
+              onClick={(e) => {
+                e.preventDefault();
+                if (p.content) onNavigate(p.slug);
+              }}
+              href="#"
+              style={{ cursor: "pointer" }}
+            >
+              <div className="post-item__left">
+                <span className="post-item__idx">{String(i + 1).padStart(2, "0")}</span>
+                <span className="post-item__title">{p.title}</span>
+              </div>
+              <div className="post-item__right">
+                <span className="post-item__read">{p.readTime}</span>
+                <time className="post-item__date">{p.date}</time>
+                <span className="post-item__arrow">↗</span>
+              </div>
+            </a>
+          </li>
+        ))}
       </ul>
       <button className="btn-text" onClick={() => setShowAll(o => !o)}>
         {showAll ? "← Show less" : `Show all ${blogPosts.length} posts →`}
@@ -403,15 +401,22 @@ function Footer() {
 /* ─── App ──────────────────────────────────────────────── */
 export default function App() {
   const [currentSlug, setCurrentSlug] = useState(null);
+  const [showLogs, setShowLogs] = useState(false); // ← 4. ADDED STATE
 
-  // When a slug is set, show Page — otherwise show the main site
+  // Daily Logs page
+  if (showLogs) {
+    return <DailyLogs onBack={() => setShowLogs(false)} />;
+  }
+
+  // Blog post page
   if (currentSlug) {
     return <Page slug={currentSlug} onBack={() => setCurrentSlug(null)} />;
   }
 
+  // Main portfolio
   return (
     <>
-      <Nav />
+      <Nav onLogsClick={() => setShowLogs(true)} />
       <main>
         <Hero />
         <Writing onNavigate={setCurrentSlug} />
